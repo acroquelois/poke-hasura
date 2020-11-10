@@ -46,7 +46,7 @@ namespace Skeleton.Api
             services.AddScoped(x => x.GetRequiredService<IOptions<AuthOptions>>().Value);
             //DbContext
             services.AddDbContext<SkeletonApiContext>(
-                options => options.UseMySQL(Configuration.GetConnectionString("SkeletonApiContext")));
+                options => options.UseNpgsql(Configuration.GetConnectionString("SkeletonApiContext")));
             
             //Controllers
             services.AddControllers();

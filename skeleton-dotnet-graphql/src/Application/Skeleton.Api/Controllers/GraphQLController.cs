@@ -8,7 +8,6 @@ using Skeleton.Api.GraphQL.Query;
 
 namespace Skeleton.Api.Controllers
 {
-    [Authorize]
     [ApiController, Route("graphql")]
     public class GraphQLController : ControllerBase
     {
