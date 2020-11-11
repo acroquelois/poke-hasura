@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgrespassword
     networks:
       static-network:
-        ipv4_address: 172.16.10.11
+        ipv4_address: 172.21.10.11
   graphql-engine:
     image: hasura/graphql-engine:v1.3.2
     ports:
@@ -28,11 +28,11 @@ services:
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
     networks:
       static-network:
-        ipv4_address: 172.16.10.10
+        ipv4_address: 172.21.10.10
 volumes:
   db_data:
 networks:
   static-network:
     ipam:
       config:
-        - subnet: 172.16.10.0/24
+        - subnet: 172.21.10.0/24

@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using Skeleton.Domain.Models;
-using Skeleton.Domain.Models.Users;
 
 namespace Skeleton.Internal
 {
@@ -17,6 +13,5 @@ namespace Skeleton.Internal
         public DbSet<QuestionAnswer> QuestionAnswers { get; set;}
         public DbSet<QuestionCategorie> QuestionCategories { get; set;}
         public DbSet<QuestionProposition> QuestionPropositions { get; set;}
-        public DbSet<User> Users { get; set; }
     }
 }

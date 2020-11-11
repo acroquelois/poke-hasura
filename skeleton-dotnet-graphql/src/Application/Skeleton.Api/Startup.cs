@@ -4,21 +4,15 @@ using GraphQL.Server;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
 using Skeleton.Api.GraphQL.Type;
 using Skeleton.Domain.Models;
-using Skeleton.Domain.Models.Users;
-using Skeleton.Domain.Options;
 using Skeleton.Domain.Repositories.Abstraction;
-using Skeleton.Domain.Services.AuthServices;
-using Skeleton.Domain.Services.AuthServices.Abstractions;
 using Skeleton.Domain.Services.Core;
 using Skeleton.Domain.UnitOfWork.Abstraction;
 using Skeleton.Internal;
@@ -39,39 +33,20 @@ namespace Skeleton.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Options
-            services
-                .AddOptions<AuthOptions>()
-                .Bind(Configuration.GetSection(nameof(ApplicationOptions.Auth)))
-                .ValidateDataAnnotations();
-            services.AddScoped(x => x.GetRequiredService<IOptions<AuthOptions>>().Value);
+
             //DbContext
             services.AddDbContext<SkeletonApiContext>(
                 options => options.UseNpgsql(Configuration.GetConnectionString("SkeletonApiContext")));
-            
-            //Controllers
-            services.AddControllers();
             // Services
             services
-                .AddScoped<ICrudService<Question, int>, CrudService<Question, int>>()
-                .AddScoped<IUserService, UserService>()
-                .AddScoped<IAuthService, AuthService>()
-                .AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            
+                .AddScoped<ICrudService<Question, int>, CrudService<Question, int>>();
+
+            services.AddControllers();
             // Repositories
             services
                 .AddScoped<ICrudRepository<Question, int>, CrudRepository<Question, int>>()
-                .AddScoped<ICrudRepository<User, int>, CrudRepository<User, int>>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // Authentification
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = "https://localhost:5001";
-                    options.Audience = "graphQLApi";
-                });
-            
             // GraphQL
             services
                 .AddSingleton<IDocumentExecuter, DocumentExecuter>()
@@ -88,6 +63,7 @@ namespace Skeleton.Api
                 .AddWebSockets();
 
 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,9 +71,7 @@ namespace Skeleton.Api
         {
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
                 .UseRouting()
-                .UseAuthorization()
                 .UseEndpoints(endpoints => endpoints.MapControllers())
-                .UseAuthentication()
                 .UseWebSockets();
             app.UseGraphQL<ISchema>();
             if (env.IsDevelopment())

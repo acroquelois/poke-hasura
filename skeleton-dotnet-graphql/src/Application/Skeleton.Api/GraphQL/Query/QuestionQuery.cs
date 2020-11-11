@@ -19,6 +19,7 @@ namespace Skeleton.Api.GraphQL.Query
                     return service.ListAsync();
                 }
             );
+            
             Field<QuestionType>(
                 name: "question",
                 arguments: new QueryArguments(new 
