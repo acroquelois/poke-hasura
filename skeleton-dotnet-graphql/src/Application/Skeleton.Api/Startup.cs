@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Skeleton.Api.GraphQL.Mutation;
 using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
 using Skeleton.Api.GraphQL.Type;
@@ -42,6 +43,7 @@ namespace Skeleton.Api
                 .AddScoped<ICrudService<Question, int>, CrudService<Question, int>>();
 
             services.AddControllers();
+            
             // Repositories
             services
                 .AddScoped<ICrudRepository<Question, int>, CrudRepository<Question, int>>()
@@ -52,10 +54,7 @@ namespace Skeleton.Api
                 .AddSingleton<IDocumentExecuter, DocumentExecuter>()
                 .AddSingleton<IDocumentWriter, DocumentWriter>()
                 .AddSingleton<QuestionQuery>()
-                .AddSingleton<QuestionAnswerType>()
-                .AddSingleton<QuestionCategorieType>()
-                .AddSingleton<QuestionPropositionType>()
-                .AddSingleton<QuestionType>()
+                .AddSingleton<QuestionMutation>()
                 .AddSingleton<ISchema, QuestionSchema>()
                 .AddGraphQL()
                 // Add required services for de/serialization

@@ -1,6 +1,7 @@
 ﻿using System;
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
+using Skeleton.Api.GraphQL.Mutation;
 using Skeleton.Api.GraphQL.Query;
 
 namespace Skeleton.Api.GraphQL.Schemas
@@ -11,6 +12,7 @@ namespace Skeleton.Api.GraphQL.Schemas
             : base(provider)
         {
             Query = provider.GetRequiredService<QuestionQuery>();
+            Mutation = provider.GetRequiredService<QuestionMutation>();
         }
     }
 }
