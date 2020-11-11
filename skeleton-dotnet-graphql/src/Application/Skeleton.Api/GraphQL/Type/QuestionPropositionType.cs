@@ -7,6 +7,7 @@ namespace Skeleton.Api.GraphQL.Type
     {
         public QuestionPropositionType()
         {
+            Name = "QuestionProposition";
             Field(x => x.Id);
             Field(x => x.Libelle);
         }

@@ -7,6 +7,7 @@ namespace Skeleton.Api.GraphQL.Type
     {
         public QuestionType()
         {
+            Name = "Question";
             Field(x => x.Id,type:typeof(IdGraphType));
             Field(x => x.Libelle);
             Field<QuestionCategorieType>(nameof(Question.QuestionCategorie));

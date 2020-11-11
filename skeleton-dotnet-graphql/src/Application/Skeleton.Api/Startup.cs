@@ -12,6 +12,7 @@ using Skeleton.Api.GraphQL.Mutation;
 using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
 using Skeleton.Api.GraphQL.Type;
+using Skeleton.Api.GraphQL.Type.InputType;
 using Skeleton.Domain.Models;
 using Skeleton.Domain.Repositories.Abstraction;
 using Skeleton.Domain.Services.Core;
@@ -53,6 +54,14 @@ namespace Skeleton.Api
             services
                 .AddSingleton<IDocumentExecuter, DocumentExecuter>()
                 .AddSingleton<IDocumentWriter, DocumentWriter>()
+                .AddSingleton<QuestionPropositionType>()
+                .AddSingleton<QuestionAnswerType>()
+                .AddSingleton<QuestionCategorieType>()
+                .AddSingleton<QuestionType>()
+                .AddSingleton<QuestionPropositionInputType>()
+                .AddSingleton<QuestionAnswerInputType>()
+                .AddSingleton<QuestionCategorieInputType>()
+                .AddSingleton<QuestionInputType>()
                 .AddSingleton<QuestionQuery>()
                 .AddSingleton<QuestionMutation>()
                 .AddSingleton<ISchema, QuestionSchema>()
@@ -76,6 +85,7 @@ namespace Skeleton.Api
             if (env.IsDevelopment())
             {
                 app.UseGraphiQLServer();
+                app.UseGraphQLAltair();
             }
             UpdateDatabase(app);
         }
