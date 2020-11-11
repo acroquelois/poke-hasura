@@ -1,4 +1,5 @@
 using GraphQL;
+using GraphQL.NewtonsoftJson;
 using GraphQL.Server;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
@@ -73,18 +74,18 @@ namespace Skeleton.Api
             
             // GraphQL
             services
-                .AddScoped<QuestionAnswerType>()
-                .AddScoped<QuestionCategorieType>()
-                .AddScoped<QuestionPropositionType>()
-                .AddScoped<QuestionType>()
-                .AddScoped<QuestionQuery>()
-                .AddScoped<ISchema, QuestionSchema>()
-                .AddScoped<IDocumentExecuter, DocumentExecuter>()
+                .AddSingleton<IDocumentExecuter, DocumentExecuter>()
+                .AddSingleton<IDocumentWriter, DocumentWriter>()
+                .AddSingleton<QuestionQuery>()
+                .AddSingleton<QuestionAnswerType>()
+                .AddSingleton<QuestionCategorieType>()
+                .AddSingleton<QuestionPropositionType>()
+                .AddSingleton<QuestionType>()
+                .AddSingleton<ISchema, QuestionSchema>()
                 .AddGraphQL()
                 // Add required services for de/serialization
                 .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { }) // For .NET Core 3+
-                .AddWebSockets()
-                .AddGraphTypes(typeof(QuestionSchema));
+                .AddWebSockets();
 
 
         }
@@ -98,6 +99,7 @@ namespace Skeleton.Api
                 .UseEndpoints(endpoints => endpoints.MapControllers())
                 .UseAuthentication()
                 .UseWebSockets();
+            app.UseGraphQL<ISchema>();
             if (env.IsDevelopment())
             {
                 app.UseGraphiQLServer();

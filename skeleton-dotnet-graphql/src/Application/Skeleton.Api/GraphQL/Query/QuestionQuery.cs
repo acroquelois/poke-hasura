@@ -1,5 +1,6 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using Microsoft.Extensions.DependencyInjection;
 using Skeleton.Api.GraphQL.Type;
 using Skeleton.Domain.Models;
 using Skeleton.Domain.Services.Core;
@@ -8,14 +9,15 @@ namespace Skeleton.Api.GraphQL.Query
 {
     public class QuestionQuery: ObjectGraphType
     {
-        private ICrudService<Question, int> _service;
-        public QuestionQuery(ICrudService<Question, int> service)
+        public QuestionQuery()
         {
-            _service = service;
             int id = 0;
             Field<ListGraphType<QuestionType>>(
                 name: "questions", resolve: (context) =>
-                    _service.ListAsync()
+                {
+                    var service = context.RequestServices.GetRequiredService<ICrudService<Question, int>>();
+                    return service.ListAsync();
+                }
             );
             Field<QuestionType>(
                 name: "question",
@@ -24,7 +26,8 @@ namespace Skeleton.Api.GraphQL.Query
                 resolve: context =>
                 {
                     id = context.GetArgument<int>("id");
-                    return _service.GetAsync(id);
+                    var service = context.RequestServices.GetRequiredService<ICrudService<Question, int>>();
+                    return service.GetAsync(id);
                 }
             );
         }
