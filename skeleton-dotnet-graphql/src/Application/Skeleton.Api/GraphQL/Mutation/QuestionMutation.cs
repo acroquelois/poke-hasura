@@ -4,7 +4,7 @@ using GraphQL.Utilities;
 using Skeleton.Api.GraphQL.Type;
 using Skeleton.Api.GraphQL.Type.InputType;
 using Skeleton.Domain.Models;
-using Skeleton.Domain.Services.Core;
+using Skeleton.Domain.Services;
 
 namespace Skeleton.Api.GraphQL.Mutation
 {
@@ -19,7 +19,7 @@ namespace Skeleton.Api.GraphQL.Mutation
                 resolve: context =>
                 {
                     var question = context.GetArgument<Question>("question");
-                    var service = context.RequestServices.GetRequiredService<ICrudService<Question, int>>();
+                    var service = context.RequestServices.GetRequiredService<IQuestionService>();
                     return service.InsertAsync(question);
                 }
             );

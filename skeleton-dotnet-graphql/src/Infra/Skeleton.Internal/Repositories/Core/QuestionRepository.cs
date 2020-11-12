@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Skeleton.Domain.Models;
 using Skeleton.Domain.Models.Core;
 using Skeleton.Domain.Repositories.Abstraction;
 using Skeleton.Domain.UnitOfWork.Abstraction;
@@ -11,71 +12,76 @@ using Skeleton.Internal.UnitOfWork;
 
 namespace Skeleton.Internal.Repositories.Core
 {
-    public class CrudRepository<TEntity, TKey> : ICrudRepository<TEntity, TKey>
-        where TEntity : BaseEntity<TKey>, new()
+    public class QuestionRepository: IQuestionRepository
     {
         private readonly IUnitOfWork _unitOfWork;
-        protected readonly DbSet<TEntity> Set;
+        protected readonly DbSet<Question> Set;
 
-        public CrudRepository(IUnitOfWork unitOfWork)
+        public QuestionRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            Set = unitOfWork.GetSet<DbSet<TEntity>, TEntity>();
+            Set = unitOfWork.GetSet<DbSet<Question>, Question>();
         }
 
-        public virtual Task<TEntity> GetAsync(TKey id, bool track = false)
+        public virtual Task<Question> GetAsync(int id, bool track = false)
         {
             var query = track ? Set : Set.AsNoTracking();
 
             return query
+                .Include(x => x.QuestionAnswer)
+                .Include(x => x.QuestionCategorie)
                 .FirstOrDefaultAsync(entity => id.Equals(entity.Id));
         }
 
-        public virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter, bool track = false)
+        public virtual Task<Question> GetAsync(Expression<Func<Question, bool>> filter, bool track = false)
         {
             var query = track ? Set : Set.AsNoTracking();
             
-            return query.AsNoTracking()
+            return query
+                .Include(x => x.QuestionAnswer)
+                .Include(x => x.QuestionCategorie)
                 .FirstOrDefaultAsync(filter);
         }
 
-        public virtual Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> filter)
+        public virtual Task<List<Question>> ListAsync(Expression<Func<Question, bool>> filter)
         {
             return Set
                 .AsNoTracking()
+                .Include(x => x.QuestionAnswer)
+                .Include(x => x.QuestionCategorie)
                 .Where(filter ?? (_ => true))
                 .OrderBy(o => o.Id)
                 .ToListAsync();
         }
 
-        public async Task InsertAsync(TEntity entity)
+        public async Task InsertAsync(Question entity)
         { 
             await Set.AddAsync(entity);
         }
 
-        public async Task InsertRangeAsync(IEnumerable<TEntity> entity)
+        public async Task InsertRangeAsync(IEnumerable<Question> entity)
         {
             await Set.AddRangeAsync(entity);
         }
 
-        public void Update(TEntity entity)
+        public void Update(Question entity)
         {
             Set.Update(entity);
         }
 
-        public void UpdateRange(IEnumerable<TEntity> entities)
+        public void UpdateRange(IEnumerable<Question> entities)
         {
             Set.UpdateRange(entities);
         }
 
-        public IQueryable<TEntity> AsQueryable(bool track = false)
+        public IQueryable<Question> AsQueryable(bool track = false)
         {
             return track ? Set : Set.AsNoTracking();
         }
 
-        public async Task<bool> DeleteAsync(TKey id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            TEntity entity = await  Set.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            Question entity = await  Set.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
             if (entity == null) return false;
 
@@ -84,9 +90,9 @@ namespace Skeleton.Internal.Repositories.Core
             return true;
         }
 
-        public async Task DeleteRangeAsync(Expression<Func<TEntity, bool>> filter)
+        public async Task DeleteRangeAsync(Expression<Func<Question, bool>> filter)
         {
-            IEnumerable<TEntity> query = await Set.Where(filter).ToListAsync();
+            IEnumerable<Question> query = await Set.Where(filter).ToListAsync();
 
             Set.RemoveRange(query);
         }

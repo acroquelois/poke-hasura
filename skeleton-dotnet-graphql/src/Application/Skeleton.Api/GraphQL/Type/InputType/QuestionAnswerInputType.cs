@@ -8,7 +8,6 @@ namespace Skeleton.Api.GraphQL.Type.InputType
         public QuestionAnswerInputType()
         {
             Name = "QuestionAnswerInput";
-            Field(x => x.Id);
             Field(x => x.Libelle);
         }
     }

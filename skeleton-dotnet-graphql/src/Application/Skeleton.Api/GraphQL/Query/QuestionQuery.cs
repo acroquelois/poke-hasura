@@ -2,8 +2,7 @@
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 using Skeleton.Api.GraphQL.Type;
-using Skeleton.Domain.Models;
-using Skeleton.Domain.Services.Core;
+using Skeleton.Domain.Services;
 
 namespace Skeleton.Api.GraphQL.Query
 {
@@ -15,8 +14,9 @@ namespace Skeleton.Api.GraphQL.Query
             Field<ListGraphType<QuestionType>>(
                 name: "questions", resolve: (context) =>
                 {
-                    var service = context.RequestServices.GetRequiredService<ICrudService<Question, int>>();
-                    return service.ListAsync();
+                    var service = context.RequestServices.GetRequiredService<IQuestionService>();
+                    var result = service.ListAsync().Result;
+                    return result;
                 }
             );
             
@@ -27,7 +27,7 @@ namespace Skeleton.Api.GraphQL.Query
                 resolve: context =>
                 {
                     id = context.GetArgument<int>("id");
-                    var service = context.RequestServices.GetRequiredService<ICrudService<Question, int>>();
+                    var service = context.RequestServices.GetRequiredService<IQuestionService>();
                     return service.GetAsync(id);
                 }
             );

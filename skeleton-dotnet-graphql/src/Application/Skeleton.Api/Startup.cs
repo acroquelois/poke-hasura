@@ -13,9 +13,8 @@ using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
 using Skeleton.Api.GraphQL.Type;
 using Skeleton.Api.GraphQL.Type.InputType;
-using Skeleton.Domain.Models;
 using Skeleton.Domain.Repositories.Abstraction;
-using Skeleton.Domain.Services.Core;
+using Skeleton.Domain.Services;
 using Skeleton.Domain.UnitOfWork.Abstraction;
 using Skeleton.Internal;
 using Skeleton.Internal.Repositories.Core;
@@ -41,13 +40,13 @@ namespace Skeleton.Api
                 options => options.UseNpgsql(Configuration.GetConnectionString("SkeletonApiContext")));
             // Services
             services
-                .AddScoped<ICrudService<Question, int>, CrudService<Question, int>>();
+                .AddScoped<IQuestionService, QuestionService>();
 
             services.AddControllers();
             
             // Repositories
             services
-                .AddScoped<ICrudRepository<Question, int>, CrudRepository<Question, int>>()
+                .AddScoped<IQuestionRepository, QuestionRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
 
             // GraphQL
