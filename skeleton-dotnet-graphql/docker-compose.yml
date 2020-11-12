@@ -1,15 +1,14 @@
 ﻿version: "3"
 services:
-  mysql-db:
-    image: mysql:latest
-    container_name: my-mysql-db
-    environment:
-      MYSQL_DATABASE: skeleton
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    ports:
-      - '3306:3306'
+  postgres:
+    image: postgres:12
+    restart: always
     volumes:
-      - db-data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - '5433:5432'
   graphql-skeleton:
     build: .
     container_name: graphql-skeleton-api

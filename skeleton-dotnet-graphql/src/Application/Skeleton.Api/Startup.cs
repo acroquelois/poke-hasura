@@ -81,11 +81,7 @@ namespace Skeleton.Api
                 .UseEndpoints(endpoints => endpoints.MapControllers())
                 .UseWebSockets();
             app.UseGraphQL<ISchema>();
-            if (env.IsDevelopment())
-            {
-                app.UseGraphiQLServer();
-                app.UseGraphQLAltair();
-            }
+            app.UseGraphiQLServer();
             UpdateDatabase(app);
         }
         
