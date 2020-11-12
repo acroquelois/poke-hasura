@@ -1,6 +1,14 @@
-query MyQuery {
-  Question {
-    Id
-    Libelle
+query GetQuestions{
+  questions {
+    id
+    libelle
+    questionAnswer{
+      id
+      libelle
+    }
+    questionCategorie{
+      id
+      libelle
+    }
   }
 }

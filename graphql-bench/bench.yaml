@@ -2,9 +2,9 @@
   warmup_duration: 20
   duration: 60
   candidates:
-  - name: Dotnet
-    url: http://127.11.10.10:8080/v1/graphql
-    query: SkeletonQuery
+  - name: dotnet
+    url: http://172.30.10.11:5000/graphql
+    query: GetQuestions
     queries_file: queries.graphql
   rps:
   - 200
