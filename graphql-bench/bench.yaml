@@ -1,9 +1,9 @@
-- name: hero_name
-  warmup_duration: 60
-  duration: 300
+- name: Hasura/Dotnet
+  warmup_duration: 20
+  duration: 60
   candidates:
-  - name: python-graphene
-    url: http://127.16.10.10:8080/v1/graphql
+  - name: Dotnet
+    url: http://127.11.10.10:8080/v1/graphql
     query: SkeletonQuery
     queries_file: queries.graphql
   rps:
