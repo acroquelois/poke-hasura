@@ -8,8 +8,8 @@
 #    queries_file: mutations/mutation-dotnet.graphql
   - name: hasura
     url: http://172.30.10.10:8080/v1/graphql/
-    query: GetAllQuestion
-    queries_file: queries/querie-hasura.graphql
+    query: CreateQuestionHasura
+    queries_file: mutations/mutation-hasura.graphql
   rps:
   - 200
-  - 400
+  - 400 

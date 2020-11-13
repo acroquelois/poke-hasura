@@ -27,7 +27,7 @@ services:
       static-network:
         ipv4_address: 172.30.10.21
   hasura-graphql:
-    image: hasura/graphql-engine:v1.3.2
+    image: hasura/graphql-engine:v1.3.3
     container_name: "hasura"
     ports:
       - "8080:8080"

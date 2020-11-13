@@ -10,7 +10,11 @@ local function file_exists(file)
   if f~=nil then
     local content = f:read("*all")
     io.close(f)
-    return content
+    if content:byte() == 239 then
+        return content:sub(4)
+    else
+        return content
+    end
   else
     error("file not found: " .. file)
   end
