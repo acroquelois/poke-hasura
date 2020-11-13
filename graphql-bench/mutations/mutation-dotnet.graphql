@@ -1,0 +1,11 @@
+﻿mutation CreateQuestionDotnet {
+    createQuestion(question:
+    {
+        libelle: "Capital de la belgique ?",
+        questionAnswer: {libelle: "Paris"},
+        questionCategorieId: 1
+    }) {
+        id
+        libelle
+    }
+}

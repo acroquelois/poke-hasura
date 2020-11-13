@@ -1,0 +1,14 @@
+﻿query GetAllQuestions{
+    questions{
+        id
+        libelle
+        questionAnswer{
+            id
+            libelle
+        }
+        questionCategorie{
+            id
+            libelle
+        }
+    }
+}

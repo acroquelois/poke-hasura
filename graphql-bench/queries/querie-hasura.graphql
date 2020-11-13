@@ -1,0 +1,6 @@
+﻿query GetAllQuestion{
+  Question{
+    Id
+    Libelle
+  }
+}
