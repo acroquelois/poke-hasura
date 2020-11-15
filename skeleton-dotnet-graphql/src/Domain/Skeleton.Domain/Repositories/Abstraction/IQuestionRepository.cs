@@ -15,7 +15,7 @@ namespace Skeleton.Domain.Repositories.Abstraction
 
         Task<Question> GetAsync(Expression<Func<Question, bool>> filter, bool track = false);
         
-        Task<List<Question>> ListAsync(Expression<Func<Question, bool>> filter = null);
+        Task<List<Question>> ListAsync(int? limit, Expression<Func<Question, bool>> filter = null);
 
         Task InsertAsync(Question entity);
 

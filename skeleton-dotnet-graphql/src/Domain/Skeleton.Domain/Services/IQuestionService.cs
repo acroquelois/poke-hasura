@@ -13,7 +13,7 @@ namespace Skeleton.Domain.Services
 
         Task<Question> GetAsync(Expression<Func<Question, bool>> filter, bool track = false);
         
-        Task<List<Question>> ListAsync(Expression<Func<Question, bool>> filter = null);
+        Task<List<Question>> ListAsync(int? limit, Expression<Func<Question, bool>> filter = null);
 
         Task<Question> InsertAsync(Question entity);
 

@@ -21,7 +21,8 @@ namespace Skeleton.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<Startup>();
+                        .UseStartup<Startup>()
+                        .UseKestrel(opt => opt.Limits.MaxConcurrentConnections = 100);
                 });
     }
 }

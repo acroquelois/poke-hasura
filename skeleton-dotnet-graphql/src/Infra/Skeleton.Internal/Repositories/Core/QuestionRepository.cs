@@ -43,15 +43,18 @@ namespace Skeleton.Internal.Repositories.Core
                 .FirstOrDefaultAsync(filter);
         }
 
-        public virtual Task<List<Question>> ListAsync(Expression<Func<Question, bool>> filter)
+        public virtual Task<List<Question>> ListAsync(int? limit, Expression<Func<Question, bool>> filter)
         {
-            return Set
+            var entities = Set
                 .AsNoTracking()
                 .Include(x => x.QuestionAnswer)
                 .Include(x => x.QuestionCategorie)
-                .Where(filter ?? (_ => true))
-                .OrderBy(o => o.Id)
-                .ToListAsync();
+                .Where(filter ?? (_ => true));
+            if (limit.HasValue)
+            {
+                entities = entities.Take(limit.Value);
+            }
+            return entities.OrderBy(o => o.Id).ToListAsync();
         }
 
         public async Task InsertAsync(Question entity)

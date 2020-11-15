@@ -1,5 +1,6 @@
+using System;
 using GraphQL;
-using GraphQL.NewtonsoftJson;
+using GraphQL.SystemTextJson;
 using GraphQL.Server;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Skeleton.Api.GraphQL.Mutation;
 using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
@@ -36,7 +36,7 @@ namespace Skeleton.Api
         {
 
             //DbContext
-            services.AddDbContext<SkeletonApiContext>(
+            services.AddDbContextPool<SkeletonApiContext>(
                 options => options.UseNpgsql(Configuration.GetConnectionString("SkeletonApiContext")));
             // Services
             services
@@ -66,7 +66,7 @@ namespace Skeleton.Api
                 .AddSingleton<ISchema, QuestionSchema>()
                 .AddGraphQL()
                 // Add required services for de/serialization
-                .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { }) // For .NET Core 3+
+                .AddSystemTextJson() // For .NET Core 3+
                 .AddWebSockets();
 
 
@@ -76,6 +76,16 @@ namespace Skeleton.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (ctx, next) =>
+            {
+                try
+                {
+                    await next();
+                }
+                catch (OperationCanceledException)
+                {
+                }
+            });
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
                 .UseRouting()
                 .UseEndpoints(endpoints => endpoints.MapControllers())

@@ -1,24 +1,24 @@
 ﻿version: '3.6'
 services:
-  postgres-hasura:
-    image: postgres:12
-    container_name: "postgres_hasura"
-    restart: always
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data_hasura:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: postgrespassword
-    networks:
-      static-network:
-        ipv4_address: 172.30.10.20
+#  postgres-hasura:
+#    image: postgres:12
+#    container_name: "postgres_hasura"
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - db_data_hasura:/var/lib/postgresql/data
+#    environment:
+#      POSTGRES_PASSWORD: postgrespassword
+#    networks:
+#      static-network:
+#        ipv4_address: 172.30.10.20
   postgres-dotnet:
     image: postgres:12
     container_name: "postgres_dotnet"
     restart: always
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - db_data_dotnet:/var/lib/postgresql/data
     environment:
@@ -32,10 +32,11 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - "postgres-hasura"
+      - "postgres-dotnet"
+      - "dotnet-graphql"
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres-hasura:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres-dotnet:5432/skeleton
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log

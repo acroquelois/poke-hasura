@@ -1,5 +1,5 @@
-﻿query GetAllQuestions{
-    questions{
+﻿query GetAllQuestionsDotnet{
+    questions(limit: 10){
         id
         libelle
         questionAnswer{

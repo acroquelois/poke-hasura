@@ -34,9 +34,9 @@ namespace Skeleton.Domain.Services
             return await _repository.GetAsync(filter);
         }
 
-        public virtual async Task<List<Question>> ListAsync(Expression<Func<Question, bool>> filter = null)
+        public virtual async Task<List<Question>> ListAsync(int? limit = null, Expression<Func<Question, bool>> filter = null)
         {
-            return await _repository.ListAsync(filter);
+            return await _repository.ListAsync(limit, filter);
         }
 
         public virtual async Task<Question> InsertAsync(Question entity)

@@ -1,11 +1,7 @@
 ﻿mutation CreateQuestionHasura {
-    insert_Question(objects: {
+    insert_Questions(objects: {
         Libelle: "Capital de la France ?",
-        QuestionAnswer: {
-            data: {
-                Libelle: "Paris"
-            }
-        },
+        QuestionAnswerId: 2,
         QuestionCategorieId: 1
     }
     ){

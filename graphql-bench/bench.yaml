@@ -1,15 +1,31 @@
-- name: query-comparison
-  warmup_duration: 10
-  duration: 10
+- name: mutation-comparison
+  warmup_duration: 3
+  duration: 60
   candidates:
-#  - name: dotnet
-#    url: http://172.30.10.11:5000/graphql/
-#    query: CreateQuestionDotnet
-#    queries_file: mutations/mutation-dotnet.graphql
+  - name: dotnet
+    url: http://172.30.10.11:5000/graphql/
+    query: CreateQuestionDotnet
+    queries_file: mutations/mutation-dotnet.graphql
   - name: hasura
     url: http://172.30.10.10:8080/v1/graphql/
     query: CreateQuestionHasura
     queries_file: mutations/mutation-hasura.graphql
   rps:
-  - 200
-  - 400 
+    - 100
+    - 200
+- name: query-comparison
+  warmup_duration: 3
+  duration: 60
+  candidates:
+    - name: dotnet
+      url: http://172.30.10.11:5000/graphql/
+      query: GetAllQuestionsDotnet
+      queries_file: queries/querie-dotnet.graphql
+    - name: hasura
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: GetAllQuestionsHasura
+      queries_file: queries/querie-hasura.graphql
+  rps:
+    - 100
+    - 200
+    - 400
