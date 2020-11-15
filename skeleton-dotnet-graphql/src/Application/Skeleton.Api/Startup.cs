@@ -13,6 +13,7 @@ using Skeleton.Api.GraphQL.Query;
 using Skeleton.Api.GraphQL.Schemas;
 using Skeleton.Api.GraphQL.Type;
 using Skeleton.Api.GraphQL.Type.InputType;
+using Skeleton.Api.Middleware;
 using Skeleton.Domain.Repositories.Abstraction;
 using Skeleton.Domain.Services;
 using Skeleton.Domain.UnitOfWork.Abstraction;
@@ -76,17 +77,8 @@ namespace Skeleton.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.Use(async (ctx, next) =>
-            {
-                try
-                {
-                    await next();
-                }
-                catch (OperationCanceledException)
-                {
-                }
-            });
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+                .UseCustomErrorHandling()
                 .UseRouting()
                 .UseEndpoints(endpoints => endpoints.MapControllers())
                 .UseWebSockets();

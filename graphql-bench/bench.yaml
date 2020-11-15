@@ -15,7 +15,7 @@
     - 200
 - name: query-comparison
   warmup_duration: 3
-  duration: 60
+  duration: 10
   candidates:
     - name: dotnet
       url: http://172.30.10.11:5000/graphql/
