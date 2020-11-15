@@ -1,18 +1,5 @@
 ﻿version: '3.6'
 services:
-#  postgres-hasura:
-#    image: postgres:12
-#    container_name: "postgres_hasura"
-#    restart: always
-#    ports:
-#      - "5432:5432"
-#    volumes:
-#      - db_data_hasura:/var/lib/postgresql/data
-#    environment:
-#      POSTGRES_PASSWORD: postgrespassword
-#    networks:
-#      static-network:
-#        ipv4_address: 172.30.10.20
   postgres-dotnet:
     image: postgres:12
     container_name: "postgres_dotnet"
