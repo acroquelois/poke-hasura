@@ -3,7 +3,7 @@
     {
         libelle: "Capital de la belgique ?",
         questionAnswer: {libelle: "Paris"},
-        questionCategorieId: 1
+        questionCategorie: {libelle: "Text"}
     }) {
         id
         libelle

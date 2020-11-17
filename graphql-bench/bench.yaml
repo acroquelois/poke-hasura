@@ -1,6 +1,6 @@
 - name: mutation-comparison
-  warmup_duration: 3
-  duration: 60
+  warmup_duration: 20
+  duration: 30
   candidates:
   - name: dotnet
     url: http://172.30.10.11:5000/graphql/
@@ -11,11 +11,12 @@
     query: CreateQuestionHasura
     queries_file: mutations/mutation-hasura.graphql
   rps:
-    - 100
     - 200
+    - 300
+    - 400
 - name: query-comparison
-  warmup_duration: 3
-  duration: 10
+  warmup_duration: 20
+  duration: 30
   candidates:
     - name: dotnet
       url: http://172.30.10.11:5000/graphql/
@@ -26,6 +27,6 @@
       query: GetAllQuestionsHasura
       queries_file: queries/querie-hasura.graphql
   rps:
-    - 100
     - 200
+    - 300
     - 400
