@@ -17,14 +17,14 @@ services:
     image: hasura/graphql-engine:v1.3.3
     container_name: "hasura"
     ports:
-      - "8080:8080"
+      - "8090:8080"
     depends_on:
       - "postgres"
       - "dotnet-graphql"
     restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/skeleton
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "false"
     networks:
       static-network:
