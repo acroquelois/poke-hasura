@@ -1,0 +1,18 @@
+﻿query GetAllQuestionsHasuraNested {
+  Questions(limit: 10) {
+    Id
+    Libelle
+    QuestionCategory {
+      Id
+      Libelle
+    }
+    QuestionAnswer {
+      Id
+      Libelle
+    }
+    QuestionPropositions {
+      Id
+      Libelle
+    }
+  }
+}

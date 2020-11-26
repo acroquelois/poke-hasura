@@ -20,37 +20,14 @@ services:
       - "8090:8080"
     depends_on:
       - "postgres"
-      - "dotnet-graphql"
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/skeleton
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "false"
     networks:
       static-network:
         ipv4_address: 172.30.10.10
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 1g
-  dotnet-graphql:
-    image: acroquelois/skeleton-dotnet-graphql:0.1
-    container_name: "graphql-skeleton-api"
-    depends_on:
-      - "postgres"
-    environment: 
-      PGDB_CONNECTION: "Host=postgres;Username=postgres;Password=postgrespassword;Database=skeleton"
-    ports:
-      - '5000:5000'
-    networks:
-      static-network:
-        ipv4_address: 172.30.10.11
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 1g
 volumes:
   db_data:
 networks:

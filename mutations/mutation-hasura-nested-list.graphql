@@ -1,0 +1,14 @@
+﻿mutation CreateQuestionHasuraNested {
+  insert_Questions_one(object: {
+    Libelle: "Test", 
+    QuestionAnswer: {data: {Libelle: "Test"}}, 
+    QuestionCategory: {data: {Libelle: "Test"}}, 
+    QuestionPropositions: {data: [
+      {Libelle: "Test"},
+      {Libelle: "Test"},
+      {Libelle: "Test"},
+    ]}
+  }) {
+    Id
+  }
+}

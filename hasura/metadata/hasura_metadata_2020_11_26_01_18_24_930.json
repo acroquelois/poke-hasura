@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "tables": [
+    {
+      "table": {
+        "schema": "public",
+        "name": "QuestionAnswers"
+      }
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "QuestionCategories"
+      }
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "QuestionPropositions"
+      },
+      "object_relationships": [
+        {
+          "name": "Question",
+          "using": {
+            "foreign_key_constraint_on": "QuestionId"
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "Questions"
+      },
+      "object_relationships": [
+        {
+          "name": "QuestionAnswer",
+          "using": {
+            "foreign_key_constraint_on": "QuestionAnswerId"
+          }
+        },
+        {
+          "name": "QuestionCategory",
+          "using": {
+            "foreign_key_constraint_on": "QuestionCategorieId"
+          }
+        }
+      ],
+      "array_relationships": [
+        {
+          "name": "QuestionPropositions",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "QuestionId",
+              "table": {
+                "schema": "public",
+                "name": "QuestionPropositions"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

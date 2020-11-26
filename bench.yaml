@@ -1,0 +1,32 @@
+- name: mutation-comparison
+  warmup_duration: 10
+  duration: 30
+  candidates:
+  - name: mutation
+    url: http://172.30.10.10:8080/v1/graphql/
+    query: CreateQuestionHasura
+    queries_file: mutations/mutation-hasura.graphql
+  - name: mutation-nested
+    url: http://172.30.10.10:8080/v1/graphql/
+    query: CreateQuestionHasuraNested
+    queries_file: mutations/mutation-hasura-nested-list.graphql
+  rps:
+    - 600
+    - 800
+    - 1000
+- name: query-comparison
+  warmup_duration: 20
+  duration: 30
+  candidates:
+    - name: querie
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: GetAllQuestionsHasura
+      queries_file: queries/querie-hasura.graphql
+    - name: querie-nested
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: GetAllQuestionsHasuraNested
+      queries_file: queries/querie-hasura-nested-list.graphql
+  rps:
+    - 600
+    - 800
+    - 1000
