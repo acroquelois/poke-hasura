@@ -1,4 +1,4 @@
-﻿query Questions {
+﻿query get_all_questions {
   Questions(limit: 10) {
     Id
     Libelle
