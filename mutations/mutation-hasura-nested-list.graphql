@@ -1,4 +1,4 @@
-﻿mutation CreateQuestionHasuraNested {
+﻿mutation create_question_nested {
   insert_Questions_one(object: {
     Libelle: "Test", 
     QuestionAnswer: {data: {Libelle: "Test"}}, 

@@ -1,4 +1,4 @@
-﻿query GetAllQuestionsHasuraNested {
+﻿query get_all_questions_nested {
   Questions(limit: 10) {
     Id
     Libelle

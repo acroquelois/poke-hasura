@@ -1,8 +1,8 @@
-﻿query GetAllQuestionsHasura {
+﻿query get_all_questions {
   Questions(limit: 10) {
     Id
     Libelle
-    QuestionCategory{
+    QuestionCategory {
       Id
       Libelle
     }
