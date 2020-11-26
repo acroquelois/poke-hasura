@@ -28,6 +28,26 @@ services:
     networks:
       static-network:
         ipv4_address: 172.30.10.10
+  hasura-graphql-light:
+    image: hasura/graphql-engine:v1.3.3
+    container_name: "hasura-light"
+    ports:
+      - "8091:8080"
+    depends_on:
+      - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+    networks:
+      static-network:
+        ipv4_address: 172.30.10.11
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1g
 volumes:
   db_data:
 networks:
