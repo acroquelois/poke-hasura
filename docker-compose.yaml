@@ -24,7 +24,7 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
-      HASURA_GRAPHQL_DEV_MODE: "false"
+      HASURA_GRAPHQL_DEV_MODE: "true"
     networks:
       static-network:
         ipv4_address: 172.30.10.10

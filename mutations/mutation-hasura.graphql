@@ -1,5 +1,5 @@
 ﻿mutation create_question {
-    insert_Questions_one(object: {
+  insert_Questions_one(object: {
     Libelle: "Test", 
     QuestionAnswer: {data: {Libelle: "Test"}}, 
     QuestionCategory: {data: {Libelle: "Test"}}, 

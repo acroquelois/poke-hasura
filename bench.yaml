@@ -1,31 +1,31 @@
- - name: mutation-comparison
-   warmup_duration: 10
-   duration: 30
-   candidates:
-   - name: mutation
-     url: http://172.30.10.10:8080/v1/graphql/
-     query: create_question
-     queries_file: mutations/mutation-hasura.graphql
-   - name: mutation-nested
-     url: http://172.30.10.10:8080/v1/graphql/
-     query: create_question_nested
-     queries_file: mutations/mutation-hasura-nested-list.graphql
-   rps:
-     - 1000
-     - 2000
-     - 3000
+- name: mutation-comparison
+  warmup_duration: 10
+  duration: 30
+  candidates:
+    - name: mutation
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: create_question
+      queries_file: mutations/mutation-hasura.graphql
+    - name: mutation-nested
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: create_question_nested
+      queries_file: mutations/mutation-hasura-nested-list.graphql
+  rps:
+    - 1000
+    - 2000
+    - 3000
 - name: query-comparison
   warmup_duration: 20
   duration: 30
   candidates:
     - name: querie
       url: http://172.30.10.10:8080/v1/graphql/
-      query: get_all_questions
+      query: Questions
       queries_file: queries/querie-hasura.graphql
-     - name: querie-nested
-       url: http://172.30.10.10:8080/v1/graphql/
-       query: get_all_questions_nested
-       queries_file: queries/querie-hasura-nested-list.graphql
+    - name: querie-nested
+      url: http://172.30.10.10:8080/v1/graphql/
+      query: get_all_questions_nested
+      queries_file: queries/querie-hasura-nested-list.graphql
   rps:
     - 1000
     - 2000
